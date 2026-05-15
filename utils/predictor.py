@@ -1,7 +1,7 @@
 """
 Model loading and prediction module for Used Car Price Predictor.
 
-Loads 9 trained ML models and runs predictions simultaneously.
+Loads 7 trained ML models and runs predictions simultaneously.
 Target variable is log(listed_price) — all outputs are exp()-transformed.
 """
 
@@ -37,20 +37,6 @@ MODEL_CONFIGS = {
         'rmse': 0.2023,
         'family': 'Ensemble',
         'color': '#34D399'
-    },
-    'Polynomial Regression': {
-        'path': 'models/polynomial_regression.pkl',
-        'r2': 0.9248,
-        'rmse': 0.2089,
-        'family': 'Regression',
-        'color': '#6366F1'
-    },
-    'SVR': {
-        'path': 'models/svr.pkl',
-        'r2': 0.9225,
-        'rmse': 0.2120,
-        'family': 'Kernel',
-        'color': '#8B5CF6'
     },
     'Linear Regression': {
         'path': 'models/linear_regression.pkl',

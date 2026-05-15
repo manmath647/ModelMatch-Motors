@@ -86,7 +86,7 @@ STATE_OPTIONS = sorted([
 
 CUSTOM_CSS = """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
 html, body, [class*="css"] {
     font-family: 'Inter', sans-serif;
@@ -94,226 +94,139 @@ html, body, [class*="css"] {
 
 .main .block-container {
     padding-top: 2rem;
-    max-width: 1200px;
+    max-width: 1000px;
 }
 
 /* Hero header */
 .hero-header {
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    border-radius: 20px;
-    padding: 2.5rem 2rem;
+    background-color: #1e1b4b;
+    border-radius: 8px;
+    padding: 2rem;
     margin-bottom: 2rem;
-    text-align: center;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255,255,255,0.05);
+    text-align: left;
+    border: 1px solid #312e81;
 }
 .hero-header h1 {
-    font-size: 2.4rem;
-    font-weight: 800;
-    background: linear-gradient(90deg, #a78bfa, #6366f1, #10b981, #34d399);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #e0e7ff;
     margin-bottom: 0.5rem;
-    letter-spacing: -0.5px;
 }
 .hero-header p {
     color: #94a3b8;
-    font-size: 1.05rem;
-    font-weight: 400;
+    font-size: 1rem;
 }
 
 /* Metric cards */
 .metric-card {
-    background: linear-gradient(145deg, #1e1b4b, #312e81);
-    border-radius: 16px;
-    padding: 1.8rem 1.5rem;
-    text-align: center;
-    border: 1px solid rgba(99, 102, 241, 0.3);
-    box-shadow: 0 8px 32px rgba(99, 102, 241, 0.15);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.metric-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(99, 102, 241, 0.25);
+    background-color: #1e1b4b;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: left;
+    border: 1px solid #312e81;
+    margin-bottom: 1rem;
 }
 .metric-card .label {
     color: #a5b4fc;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-size: 0.9rem;
+    font-weight: 500;
     margin-bottom: 0.5rem;
 }
 .metric-card .value {
-    font-size: 2rem;
-    font-weight: 800;
+    font-size: 1.8rem;
+    font-weight: 600;
     color: #e0e7ff;
-    line-height: 1.2;
 }
 .metric-card .sub {
     color: #818cf8;
-    font-size: 0.82rem;
-    margin-top: 0.4rem;
-    font-weight: 500;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
 }
 
 /* Best prediction hero */
 .best-card {
-    background: linear-gradient(145deg, #064e3b, #065f46);
-    border: 1px solid rgba(16, 185, 129, 0.4);
-    box-shadow: 0 8px 32px rgba(16, 185, 129, 0.2);
+    background-color: #1e293b;
+    border: 1px solid #334155;
 }
-.best-card:hover {
-    box-shadow: 0 12px 40px rgba(16, 185, 129, 0.3);
-}
-.best-card .label { color: #6ee7b7; }
-.best-card .value { color: #ecfdf5; font-size: 2.4rem; }
-.best-card .sub { color: #34d399; }
+.best-card .label { color: #94a3b8; }
+.best-card .value { color: #f8fafc; font-size: 2rem; }
+.best-card .sub { color: #cbd5e1; }
 
 /* Range card */
 .range-card {
-    background: linear-gradient(145deg, #1e1b4b, #312e81);
-    border: 1px solid rgba(139, 92, 246, 0.3);
-    border-radius: 16px;
+    background-color: #1e1b4b;
+    border: 1px solid #312e81;
+    border-radius: 8px;
     padding: 1.5rem;
-    text-align: center;
+    text-align: left;
 }
-.range-card .label { color: #c4b5fd; font-size: 0.85rem; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.3rem; }
-.range-card .value { color: #e0e7ff; font-size: 1.3rem; font-weight: 700; }
+.range-card .label { color: #a5b4fc; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem; }
+.range-card .value { color: #e0e7ff; font-size: 1.2rem; font-weight: 600; }
 
 /* Table styling */
 .model-table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    border-radius: 12px;
-    overflow: hidden;
-    font-size: 0.92rem;
+    border-collapse: collapse;
+    font-size: 0.95rem;
 }
-.model-table thead th {
-    background: #1e1b4b;
-    color: #a5b4fc;
-    padding: 0.9rem 1rem;
+.model-table th, .model-table td {
+    padding: 0.75rem 1rem;
     text-align: left;
+    border-bottom: 1px solid #312e81;
+}
+.model-table th {
+    color: #a5b4fc;
     font-weight: 600;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-bottom: 2px solid #312e81;
+    font-size: 0.85rem;
+    background-color: #1e1b4b;
 }
-.model-table tbody tr {
-    transition: background 0.2s ease;
-}
-.model-table tbody tr:hover {
-    background: rgba(99, 102, 241, 0.08);
-}
-.model-table tbody td {
-    padding: 0.8rem 1rem;
-    border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+.model-table td {
     color: #e0e7ff;
 }
-.model-table .rank-badge {
-    display: inline-block;
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 28px;
-    font-weight: 700;
-    font-size: 0.8rem;
-}
-.rank-1 { background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; }
-.rank-2 { background: linear-gradient(135deg, #9ca3af, #6b7280); color: #fff; }
-.rank-3 { background: linear-gradient(135deg, #b45309, #92400e); color: #fff; }
-.rank-other { background: #312e81; color: #a5b4fc; }
 
-.r2-badge {
-    display: inline-block;
-    padding: 0.25rem 0.6rem;
-    border-radius: 20px;
+.rank-badge {
     font-weight: 600;
-    font-size: 0.82rem;
+    color: #a5b4fc;
 }
-.r2-high { background: rgba(16, 185, 129, 0.15); color: #34d399; }
-.r2-mid { background: rgba(251, 191, 36, 0.15); color: #fbbf24; }
-.r2-low { background: rgba(239, 68, 68, 0.15); color: #f87171; }
 
-.family-badge {
-    display: inline-block;
-    padding: 0.2rem 0.55rem;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    font-weight: 600;
+.r2-badge, .family-badge {
+    font-size: 0.85rem;
+    color: #cbd5e1;
 }
-.family-ensemble { background: rgba(16, 185, 129, 0.12); color: #34d399; }
-.family-regression { background: rgba(99, 102, 241, 0.12); color: #818cf8; }
-.family-kernel { background: rgba(139, 92, 246, 0.12); color: #a78bfa; }
 
 /* Section headers */
 .section-header {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
     margin: 2rem 0 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid rgba(99, 102, 241, 0.2);
+    border-bottom: 1px solid #312e81;
 }
 .section-header h3 {
     color: #e0e7ff;
-    font-weight: 700;
-    font-size: 1.15rem;
+    font-weight: 600;
+    font-size: 1.2rem;
     margin: 0;
-}
-
-/* Sidebar styling */
-section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #0f0c29 0%, #1a1744 100%);
-}
-section[data-testid="stSidebar"] .stSelectbox label,
-section[data-testid="stSidebar"] .stNumberInput label,
-section[data-testid="stSidebar"] .stTextInput label {
-    color: #a5b4fc !important;
-    font-weight: 500;
-    font-size: 0.85rem;
-}
-
-/* Predict button */
-.stButton > button {
-    background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
-    color: white !important;
-    border: none !important;
-    border-radius: 12px !important;
-    padding: 0.75rem 2rem !important;
-    font-weight: 700 !important;
-    font-size: 1.1rem !important;
-    width: 100% !important;
-    transition: all 0.3s ease !important;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4) !important;
-}
-.stButton > button:hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5) !important;
 }
 
 /* Note box */
 .note-box {
-    background: rgba(99, 102, 241, 0.08);
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    border-radius: 10px;
+    background-color: #1e1b4b;
+    border: 1px solid #312e81;
+    border-radius: 8px;
     padding: 1rem;
-    color: #a5b4fc;
-    font-size: 0.85rem;
+    color: #cbd5e1;
+    font-size: 0.95rem;
     margin-top: 1rem;
 }
 
 /* Missing model warning */
 .missing-model {
-    background: rgba(251, 191, 36, 0.08);
-    border: 1px solid rgba(251, 191, 36, 0.25);
-    border-radius: 10px;
+    background-color: #332701;
+    border: 1px solid #715200;
+    border-radius: 8px;
     padding: 0.8rem 1rem;
-    color: #fbbf24;
-    font-size: 0.85rem;
+    color: #fde047;
+    font-size: 0.95rem;
 }
 </style>
 """
+

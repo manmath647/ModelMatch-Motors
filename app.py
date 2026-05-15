@@ -64,8 +64,8 @@ def _idx(options, key, default=0):
 
 # ── SIDEBAR ──
 with st.sidebar:
-    st.markdown("## 🚗 Car Details")
-    example_choice = st.selectbox("📋 Load Example Car", list(EXAMPLES.keys()))
+    st.markdown("## Car Details")
+    example_choice = st.selectbox("Load Example Car", list(EXAMPLES.keys()))
     if example_choice != "-- Select Example --" and EXAMPLES[example_choice]:
         st.session_state['_example_data'] = EXAMPLES[example_choice]
     elif example_choice == "-- Select Example --":
@@ -73,7 +73,7 @@ with st.sidebar:
 
     st.markdown("---")
 
-    with st.expander("🚗 Basic Car Info", expanded=True):
+    with st.expander("Basic Car Info", expanded=True):
         myear = st.number_input("Manufacture Year", 1990, 2026, _get('myear', 2019))
         body = st.selectbox("Body Type", BODY_OPTIONS, _idx(BODY_OPTIONS, 'body', 0))
         transmission = st.selectbox("Transmission", TRANSMISSION_OPTIONS, _idx(TRANSMISSION_OPTIONS, 'transmission', 0))
@@ -83,14 +83,14 @@ with st.sidebar:
         model_name = st.text_input("Model", _get('model', ''))
         variant = st.text_input("Variant", _get('variant', ''))
 
-    with st.expander("📍 Location & Listing"):
+    with st.expander("Location & Listing"):
         city = st.text_input("City", _get('City', ''))
         state = st.selectbox("State", STATE_OPTIONS, _idx(STATE_OPTIONS, 'state', 0))
         color = st.text_input("Color", _get('Color', ''))
         ext_color = st.text_input("Exterior Color", _get('exterior_color', ''))
         owner = st.selectbox("Owner Type", OWNER_OPTIONS, _idx(OWNER_OPTIONS, 'owner_type', 0))
 
-    with st.expander("🔧 Engine & Performance"):
+    with st.expander("Engine & Performance"):
         engine_type = st.text_input("Engine Type", _get('Engine Type', ''))
         cylinders = st.number_input("No. of Cylinders", 1, 16, _get('No of Cylinder', 4))
         valves_per = st.number_input("Valves per Cylinder", 1, 5, _get('Valves per Cylinder', 4))
@@ -104,7 +104,7 @@ with st.sidebar:
         max_torque_at = st.number_input("Max Torque At (rpm)", 500, 8000, _get('Max Torque At', 3177), step=100)
         acceleration = st.number_input("0-100 kmph (sec)", 2.0, 40.0, float(_get('Acceleration', 13.2)), step=0.1)
 
-    with st.expander("📐 Dimensions"):
+    with st.expander("Dimensions"):
         length = st.number_input("Length (mm)", 2000, 6000, _get('Length', 4110), step=10)
         width = st.number_input("Width (mm)", 1200, 2500, _get('Width', 1724), step=10)
         height = st.number_input("Height (mm)", 1000, 2500, _get('Height', 1576), step=10)
@@ -112,7 +112,7 @@ with st.sidebar:
         kerb_wt = st.number_input("Kerb Weight (kg)", 400, 4000, _get('Kerb Weight', 1116), step=10)
         cargo = st.number_input("Cargo Volume (L)", 50, 1500, _get('Cargo Volume', 360), step=10)
 
-    with st.expander("⚙️ Transmission & Chassis"):
+    with st.expander("Transmission & Chassis"):
         gearbox = st.number_input("Gears", 3, 10, _get('Gear Box', 5))
         drive = st.selectbox("Drive Type", DRIVE_OPTIONS, _idx(DRIVE_OPTIONS, 'Drive Type', 0))
         seats = st.number_input("Seats", 2, 12, _get('Seats', 5))
@@ -125,7 +125,7 @@ with st.sidebar:
         alloy_size = st.number_input("Alloy Wheel Size (in)", 10, 24, _get('Alloy Wheel Size', 15))
 
     st.markdown("---")
-    predict_btn = st.button("🔮 Predict Price", use_container_width=True, type="primary")
+    predict_btn = st.button("Predict Price", use_container_width=True, type="primary")
 
 # ── Build input dict ──
 input_data = {
@@ -150,8 +150,8 @@ input_data = {
 # ── MAIN AREA ──
 st.markdown("""
 <div class="hero-header">
-    <h1>🚗 Used Car Price Predictor</h1>
-    <p>AI-powered price estimation using 9 machine learning models trained on Indian used car market data</p>
+    <h1>Used Car Price Predictor</h1>
+    <p>AI-powered price estimation using 7 machine learning models trained on Indian used car market data</p>
     <div style="font-size: 0.7rem; color: #64748b; margin-top: 0.5rem;">Environment: Python {sys.version.split()[0]}</div>
 </div>
 """, unsafe_allow_html=True)
@@ -159,7 +159,7 @@ st.markdown("""
 # Show missing models
 missing = [n for n in MODEL_CONFIGS if n not in loaded_models]
 if missing:
-    st.markdown(f'<div class="missing-model">⚠️ Missing models (skipped): {", ".join(missing)}. Add the .pkl files to the models/ folder.</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="missing-model">Missing models (skipped): {", ".join(missing)}. Add the .pkl files to the models/ folder.</div>', unsafe_allow_html=True)
 
 if not predict_btn:
     # Landing state
@@ -184,9 +184,9 @@ if not predict_btn:
         </div>""", unsafe_allow_html=True)
 
     st.markdown("""<div class="note-box">
-        👈 <strong>Fill in car details</strong> in the sidebar or <strong>load an example</strong> from the dropdown, then click <strong>🔮 Predict Price</strong>.
+        <strong>Fill in car details</strong> in the sidebar or <strong>load an example</strong> from the dropdown, then click <strong>Predict Price</strong>.
         <br><br>
-        ℹ️ High-cardinality fields (OEM, Model, City, etc.) use approximate hash encoding. For best results, use the example presets.
+        High-cardinality fields (OEM, Model, City, etc.) use approximate hash encoding. For best results, use the example presets.
     </div>""", unsafe_allow_html=True)
 
 else:
@@ -206,31 +206,31 @@ else:
     lo, hi = get_confidence_range(best['price'], best['rmse'])
 
     # ── Hero metrics ──
-    st.markdown('<div class="section-header"><h3>🏆 Prediction Results</h3></div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header"><h3>Prediction Results</h3></div>', unsafe_allow_html=True)
 
     c1, c2, c3 = st.columns([2, 1, 1])
     with c1:
         st.markdown(f"""<div class="metric-card best-card">
-            <div class="label">🏆 Best Prediction ({best_name})</div>
+            <div class="label">Best Prediction ({best_name})</div>
             <div class="value">{format_price_inr(best['price'])}</div>
             <div class="sub">R² = {best['r2']:.4f} · RMSE = {best['rmse']:.4f}</div>
         </div>""", unsafe_allow_html=True)
     with c2:
         st.markdown(f"""<div class="metric-card">
-            <div class="label">📊 Average (All Models)</div>
+            <div class="label">Average (All Models)</div>
             <div class="value">{format_price_inr(avg_price)}</div>
             <div class="sub">{len(valid)} models</div>
         </div>""", unsafe_allow_html=True)
     with c3:
         st.markdown(f"""<div class="range-card">
-            <div class="label">📐 Expected Range</div>
+            <div class="label">Expected Range</div>
             <div class="value">{format_price_inr(lo)} — {format_price_inr(hi)}</div>
         </div>""", unsafe_allow_html=True)
 
     st.markdown("")
 
     # ── Comparison Table ──
-    st.markdown('<div class="section-header"><h3>📋 All Models Comparison</h3></div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header"><h3>All Models Comparison</h3></div>', unsafe_allow_html=True)
 
     rows_html = ""
     for name in sorted(valid, key=lambda n: valid[n].get('rank', 99)):
@@ -259,7 +259,7 @@ else:
     col_l, col_r = st.columns(2)
 
     with col_l:
-        st.markdown('<div class="section-header"><h3>📊 Price Comparison</h3></div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header"><h3>Price Comparison</h3></div>', unsafe_allow_html=True)
         names = sorted(valid, key=lambda n: valid[n]['price'], reverse=True)
         prices = [valid[n]['price'] for n in names]
         colors = [valid[n]['color'] for n in names]
@@ -284,7 +284,7 @@ else:
         st.plotly_chart(fig1, use_container_width=True)
 
     with col_r:
-        st.markdown('<div class="section-header"><h3>📈 Model R² Scores</h3></div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header"><h3>Model R² Scores</h3></div>', unsafe_allow_html=True)
         names_r2 = sorted(valid, key=lambda n: valid[n]['r2'])
         r2_vals = [valid[n]['r2'] for n in names_r2]
         r2_colors = ['#10b981' if v >= 0.92 else '#fbbf24' if v >= 0.85 else '#f87171' for v in r2_vals]
@@ -306,7 +306,7 @@ else:
         st.plotly_chart(fig2, use_container_width=True)
 
     # ── Input Summary ──
-    with st.expander("📋 Input Summary"):
+    with st.expander("Input Summary"):
         ic1, ic2, ic3 = st.columns(3)
         feats = list(input_data.items())
         third = len(feats) // 3
@@ -319,6 +319,6 @@ else:
 st.markdown("---")
 st.markdown("""
 <div style="text-align:center; color:#64748b; font-size:0.82rem; padding:1rem 0;">
-    Built with ❤️ using Streamlit · Models trained on Indian used car market data · scikit-learn 1.6.1
+    Built with Streamlit · Models trained on Indian used car market data · scikit-learn 1.6.1
 </div>
 """, unsafe_allow_html=True)
