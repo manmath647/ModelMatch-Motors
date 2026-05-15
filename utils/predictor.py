@@ -9,6 +9,7 @@ import os
 import numpy as np
 import pickle
 import warnings
+import joblib    
 
 warnings.filterwarnings('ignore')
 
@@ -91,11 +92,13 @@ def get_available_models():
     return available
 
 
+# Change this import at the top:
+      # add this
+# import pickle       # remove or keep (not needed for models)
+
+# Change the load_model function:
 def load_model(model_path):
-    """Load a single model from pickle file."""
-    with open(model_path, 'rb') as f:
-        model = pickle.load(f)
-    return model
+    return joblib.load(model_path)   # ✅ correct
 
 
 def predict_single(model, X_scaled):
