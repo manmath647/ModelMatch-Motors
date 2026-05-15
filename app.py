@@ -1,6 +1,7 @@
 """Used Car Price Predictor — Streamlit App."""
 import streamlit as st
 import numpy as np
+import sys
 import plotly.graph_objects as go
 from utils.preprocess import encode_and_scale, load_scaler
 from utils.predictor import (
@@ -151,6 +152,7 @@ st.markdown("""
 <div class="hero-header">
     <h1>🚗 Used Car Price Predictor</h1>
     <p>AI-powered price estimation using 9 machine learning models trained on Indian used car market data</p>
+    <div style="font-size: 0.7rem; color: #64748b; margin-top: 0.5rem;">Environment: Python {sys.version.split()[0]}</div>
 </div>
 """, unsafe_allow_html=True)
 
