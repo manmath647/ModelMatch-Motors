@@ -2,7 +2,7 @@
 Model loading and prediction module for Used Car Price Predictor.
 
 Loads 7 trained ML models and runs predictions simultaneously.
-Target variable is log(listed_price) — all outputs are exp()-transformed.
+Target variable is log1p(listed_price) — all outputs are expm1()-transformed.
 """
 
 import os
@@ -78,13 +78,8 @@ def get_available_models():
     return available
 
 
-# Change this import at the top:
-      # add this
-# import pickle       # remove or keep (not needed for models)
-
-# Change the load_model function:
 def load_model(model_path):
-    return joblib.load(model_path)   # ✅ correct
+    return joblib.load(model_path)
 
 
 def predict_single(model, X_scaled):
@@ -101,7 +96,7 @@ def predict_single(model, X_scaled):
     tuple : (log_prediction, actual_price)
     """
     log_pred = model.predict(X_scaled)[0]
-    price = np.exp(log_pred)
+    price = np.expm1(log_pred)  # ✅ FIXED: was np.exp()
     return log_pred, price
 
 
@@ -161,11 +156,12 @@ def get_confidence_range(price, rmse):
     """
     Compute a pseudo-confidence interval using training RMSE.
 
-    Since the model predicts log(price), the RMSE is in log-space.
-    We compute: price * exp(-rmse) to price * exp(+rmse)
+    Since the model predicts log1p(price), the RMSE is in log-space.
+    We compute: expm1(log1p(price) ± rmse)
     """
-    lower = price * np.exp(-rmse)
-    upper = price * np.exp(rmse)
+    log_price = np.log1p(price)  # ✅ FIXED: back to log space correctly
+    lower = np.expm1(log_price - rmse)
+    upper = np.expm1(log_price + rmse)
     return float(lower), float(upper)
 
 
