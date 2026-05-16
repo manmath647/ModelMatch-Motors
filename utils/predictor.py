@@ -9,7 +9,7 @@ import os
 import numpy as np
 import pickle
 import warnings
-import joblib    
+import joblib
 
 warnings.filterwarnings('ignore')
 
@@ -78,9 +78,7 @@ def get_available_models():
     return available
 
 
-# Change this import at the top:
-      # add this
-# import pickle       # remove or keep (not needed for models)
+
 
 # Change the load_model function:
 def load_model(model_path):
