@@ -31,7 +31,8 @@ FEATURE_ORDER = [
 
 CATEGORICAL_COLS = [
     'body', 'transmission', 'fuel', 'oem', 'model', 'variant',
-    'City', 'Color', 'Engine Type', 'Valve Configuration', 'Gear Box',
+    'City', 'Color', 'Engine Type', 'Valve Configuration',
+    # ✅ 'Gear Box' removed — it's numeric (number of gears)
     'Drive Type', 'Steering Type', 'Front Brake Type', 'Rear Brake Type',
     'Tyre Type', 'state', 'exterior_color', 'owner_type', 'Fuel Suppy System'
 ]
@@ -41,7 +42,8 @@ NUMERIC_COLS = [
     'Turbo Charger', 'Super Charger', 'Length', 'Width', 'Height',
     'Wheel Base', 'Kerb Weight', 'Seats', 'Turning Radius',
     'Acceleration', 'Doors', 'Cargo Volume', 'Alloy Wheel Size',
-    'Max Power Delivered', 'Max Power At', 'Max Torque Delivered', 'Max Torque At'
+    'Max Power Delivered', 'Max Power At', 'Max Torque Delivered', 'Max Torque At',
+    'Gear Box'  # ✅ added here — just a number (4, 5, 6...)
 ]
 
 # ──────────────────────────────────────────────────────────────────────
@@ -100,13 +102,6 @@ FUEL_SUPPLY_MAP = {
     'mpfi': 10, 'pfi': 11, 'sefi': 12, 'tdi': 13, 'tfsi': 14
 }
 
-GEAR_BOX_MAP = {
-    '4': 0, '5': 1, '6': 2, '7': 3, '8': 4,
-    '9': 5, '10': 6, 'ivt': 7, 'cvt': 8, 'e-cvt': 9,
-    4: 0, 5: 1, 6: 2, 7: 3, 8: 4,
-    9: 5, 10: 6
-}
-
 # Indian states mapping
 STATE_MAP = {
     'andhra pradesh': 0, 'arunachal pradesh': 1, 'assam': 2,
@@ -136,9 +131,9 @@ HIGH_CARDINALITY_SIZES = {
 # Default mean values for each feature (from scaler) — used as fallback
 FEATURE_DEFAULTS = {
     'myear': 2017,
-    'body': 6,         # encoded mean ~5.74
-    'transmission': 1, # encoded mean ~0.77
-    'fuel': 3,         # encoded mean ~2.71
+    'body': 6,
+    'transmission': 1,
+    'fuel': 3,
     'km': 45000,
     'oem': 21,
     'model': 160,
@@ -156,7 +151,7 @@ FEATURE_DEFAULTS = {
     'Height': 1576,
     'Wheel Base': 2543,
     'Kerb Weight': 1116,
-    'Gear Box': 3,
+    'Gear Box': 5,         # ✅ fixed: default is 5 gears, not encoded index
     'Drive Type': 4,
     'Seats': 5,
     'Steering Type': 1,
@@ -198,7 +193,6 @@ def encode_categorical(feature_name, value):
 
     val_lower = str(value).strip().lower()
 
-    # Low-cardinality mappings
     mapping_lookup = {
         'body': BODY_MAP,
         'transmission': TRANSMISSION_MAP,
@@ -211,7 +205,6 @@ def encode_categorical(feature_name, value):
         'Tyre Type': TYRE_MAP,
         'owner_type': OWNER_MAP,
         'Fuel Suppy System': FUEL_SUPPLY_MAP,
-        'Gear Box': GEAR_BOX_MAP,
         'state': STATE_MAP,
     }
 
@@ -219,10 +212,8 @@ def encode_categorical(feature_name, value):
         m = mapping_lookup[feature_name]
         if val_lower in m:
             return m[val_lower]
-        # Try with the original value (for Gear Box which accepts ints)
         if value in m:
             return m[value]
-        # Fallback: try partial match
         for k, v in m.items():
             if str(k) in val_lower or val_lower in str(k):
                 return v
@@ -268,13 +259,12 @@ def encode_and_scale(input_dict, scaler):
             encoded = encode_categorical(feat, raw_value)
             feature_vector.append(float(encoded))
         elif feat in ('Turbo Charger', 'Super Charger'):
-            # Boolean features
             if isinstance(raw_value, str):
                 feature_vector.append(1.0 if raw_value.strip().lower() in ('yes', '1', 'true') else 0.0)
             else:
                 feature_vector.append(float(raw_value) if raw_value else 0.0)
         else:
-            # Numeric features
+            # Numeric features (including Gear Box)
             if raw_value is not None and raw_value != '':
                 try:
                     feature_vector.append(float(raw_value))
