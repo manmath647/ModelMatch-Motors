@@ -115,7 +115,7 @@ CUSTOM_CSS = """
 /* === RESET & BASE === */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
-#MainMenu {visibility:hidden;} footer {visibility:hidden;} header {visibility:hidden;}
+#MainMenu {visibility:hidden;} footer {visibility:hidden;}
 .main .block-container { padding-top: 1.5rem; max-width: 1100px; }
 
 /* === SIDEBAR === */
